@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Eklor">
+<meta name="robots" content="index, follow">
+<meta name="description" content="Eklor génère des rendez-vous commerciaux qualifiés avec des décideurs de PME B2B. Sans recruter, sans engagement long, sans bullshit. Audit gratuit.">
+<meta property="og:title" content="Eklor. On livre. Pas des promesses. Des rendez-vous.">
+<meta property="og:description" content="Votre expert en acquisition B2B externalisé. Génération de rendez-vous qualifiés via LinkedIn et email. Dès 400€/mois.">
+<meta property="og:type" content="website">
+<title>Eklor. On livre. Pas des promesses. Des rendez-vous.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* ============ RESET & BASE ============ */
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+  body{
+    background:#0a0a0a;
+    color:#f5f5f0;
+    font-family:'DM Sans',sans-serif;
+    font-weight:400;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  :root{
+    --bg:#0a0a0a;
+    --surface:#111;
+    --surface-2:#181818;
+    --border:#2a2a2a;
+    --text:#f5f5f0;
+    --muted:#888880;
+    --accent:#e8ff47;
+  }
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  ul{list-style:none}
+  img{max-width:100%;display:block}
+
+  .container{max-width:1240px;margin:0 auto;padding:0 32px}
+  @media(max-width:640px){.container{padding:0 20px}}
+
+  /* ============ TYPO ============ */
+  h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-0.02em;line-height:1.05}
+  .label{
+    font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
+    color:var(--muted);font-weight:500;
+    display:inline-block;margin-bottom:24px;
+  }
+  .label::before{content:"// ";color:var(--accent)}
+
+  /* ============ NAV ============ */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(10,10,10,0.7);
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s ease, background .3s ease;
+  }
+  nav.scrolled{border-bottom-color:var(--border);background:rgba(10,10,10,0.85)}
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    height:72px;
+  }
+  .logo{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;
+    letter-spacing:0.04em;
+  }
+  .logo .y{color:var(--accent)}
+  .nav-links{display:flex;gap:36px;align-items:center}
+  .nav-links a{
+    font-size:14px;color:var(--muted);font-weight:400;
+    transition:color .2s ease;position:relative;
+  }
+  .nav-links a:hover{color:var(--text)}
+  .nav-cta{
+    background:var(--accent);color:#000;
+    padding:11px 20px;border-radius:6px;
+    font-size:14px;font-weight:500;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 24px -8px rgba(232,255,71,0.4)}
+
+  .burger{display:none;width:32px;height:32px;flex-direction:column;justify-content:center;gap:6px;cursor:pointer}
+  .burger span{display:block;height:2px;width:24px;background:var(--text);transition:transform .3s ease, opacity .3s ease}
+  .burger.active span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+  .burger.active span:nth-child(2){opacity:0}
+  .burger.active span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+
+  @media(max-width:880px){
+    .nav-links{
+      position:fixed;top:72px;left:0;right:0;
+      background:rgba(10,10,10,0.98);backdrop-filter:blur(20px);
+      flex-direction:column;align-items:flex-start;
+      padding:32px;gap:24px;
+      border-bottom:1px solid var(--border);
+      transform:translateY(-150%);transition:transform .35s ease;
+    }
+    .nav-links.open{transform:translateY(0)}
+    .nav-links a{font-size:18px}
+    .burger{display:flex}
+  }
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;
+    padding:200px 0 140px;
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size:64px 64px;
+    opacity:0.3;
+    -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 80%);
+    mask-image:radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 80%);
+  }
+  .hero-glow{
+    position:absolute;top:-200px;right:-200px;width:700px;height:700px;
+    background:radial-gradient(circle, rgba(232,255,71,0.08) 0%, transparent 60%);
+    z-index:0;pointer-events:none;
+  }
+  .hero-inner{position:relative;z-index:1;max-width:920px}
+  .badge{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:8px 16px;border:1px solid var(--border);
+    border-radius:100px;font-size:12px;color:var(--muted);
+    letter-spacing:0.08em;text-transform:uppercase;font-weight:500;
+    margin-bottom:40px;
+    background:rgba(17,17,17,0.6);
+  }
+  .pulse{
+    width:8px;height:8px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 0 0 rgba(232,255,71,0.6);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(232,255,71,0.6)}
+    70%{box-shadow:0 0 0 12px rgba(232,255,71,0)}
+    100%{box-shadow:0 0 0 0 rgba(232,255,71,0)}
+  }
+  h1{
+    font-size:clamp(2.5rem, 5vw, 4.5rem);
+    margin-bottom:32px;
+  }
+  h1 .accent{color:var(--accent)}
+  .hero-sub{
+    font-size:clamp(1.05rem, 1.4vw, 1.25rem);
+    color:var(--muted);
+    max-width:640px;
+    margin-bottom:48px;
+    font-weight:300;
+  }
+  .hero-actions{display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin-bottom:24px}
+  .btn-primary{
+    background:var(--accent);color:#000;
+    padding:16px 28px;border-radius:6px;
+    font-weight:500;font-size:15px;
+    display:inline-flex;align-items:center;gap:8px;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 32px -10px rgba(232,255,71,0.5)}
+  .btn-ghost{
+    color:var(--text);font-size:15px;font-weight:400;
+    padding:16px 4px;
+    transition:color .2s ease, transform .2s ease;
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .btn-ghost:hover{color:var(--accent);transform:translateX(4px)}
+  .hero-note{font-size:13px;color:var(--muted);margin-top:8px}
+  .hero-note::before{content:"→ ";color:var(--accent)}
+
+  /* ============ PROMISES ============ */
+  .promises{
+    background:var(--surface);
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+  }
+  .promises-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);
+  }
+  .promise{
+    padding:80px 48px;
+    border-right:1px solid var(--border);
+  }
+  .promise:last-child{border-right:none}
+  .promise-icon{
+    font-size:32px;margin-bottom:24px;
+    display:inline-flex;align-items:center;justify-content:center;
+    width:56px;height:56px;
+    background:rgba(232,255,71,0.08);border:1px solid rgba(232,255,71,0.2);
+    border-radius:12px;
+  }
+  .promise h3{font-size:22px;margin-bottom:14px;font-weight:700}
+  .promise p{color:var(--muted);font-size:15px;line-height:1.65}
+  @media(max-width:880px){
+    .promises-grid{grid-template-columns:1fr}
+    .promise{border-right:none;border-bottom:1px solid var(--border);padding:56px 32px}
+    .promise:last-child{border-bottom:none}
+  }
+
+  /* ============ SECTION GENERIC ============ */
+  section.bg-dark{background:var(--bg)}
+  section.bg-surface{background:var(--surface)}
+  .section-pad{padding:140px 0}
+  @media(max-width:880px){.section-pad{padding:96px 0}}
+  .section-title{
+    font-size:clamp(2.2rem, 4.5vw, 3.5rem);
+    margin-bottom:80px;max-width:780px;
+  }
+
+  /* ============ SERVICES ============ */
+  .services-list{border-top:1px solid var(--border)}
+  .service{
+    display:grid;grid-template-columns:80px 1fr auto;
+    gap:48px;align-items:start;
+    padding:56px 0;
+    border-bottom:1px solid var(--border);
+    transition:background .3s ease;
+  }
+  .service:hover{background:linear-gradient(90deg, rgba(232,255,71,0.02), transparent 60%)}
+  .service-num{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;
+    font-size:14px;color:var(--muted);letter-spacing:0.1em;
+    padding-top:6px;
+  }
+  .service h3{font-size:28px;margin-bottom:16px;font-weight:700}
+  .service p{color:var(--muted);font-size:16px;max-width:680px}
+  .service .btn-ghost{align-self:center;white-space:nowrap}
+  @media(max-width:880px){
+    .service{grid-template-columns:1fr;gap:16px;padding:40px 0}
+    .service-num{padding-top:0}
+    .service h3{font-size:22px}
+  }
+
+  .channel-note{
+    margin-top:80px;padding:40px 48px;
+    background:var(--surface-2);
+    border-left:3px solid var(--accent);
+    border-radius:0 8px 8px 0;
+  }
+  .channel-note h4{font-size:20px;margin-bottom:16px;font-weight:700}
+  .channel-note p{color:var(--muted);font-size:15px;line-height:1.7}
+  .channel-note .soon{
+    margin-top:18px;display:block;
+    font-size:13px;color:var(--muted);font-style:italic;
+  }
+  @media(max-width:640px){.channel-note{padding:32px 24px}}
+
+  /* ============ COMPARATIF ============ */
+  .compare-wrap{overflow-x:auto;margin-top:32px}
+  .compare{
+    display:grid;
+    grid-template-columns:1.3fr 1fr 1fr 1fr;
+    min-width:760px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    overflow:hidden;
+    background:var(--surface);
+  }
+  .compare-cell{
+    padding:22px 24px;
+    border-bottom:1px solid var(--border);
+    border-right:1px solid var(--border);
+    font-size:14px;
+    display:flex;align-items:center;
+    color:var(--text);
+  }
+  .compare-cell:nth-child(4n){border-right:none}
+  .compare-cell.head{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;
+    text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--muted);
+    background:#0d0d0d;
+  }
+  .compare-cell.criteria{color:var(--muted)}
+  .compare-cell.eklor{
+    background:rgba(232,255,71,0.04);
+    color:var(--text);font-weight:500;
+    border-right:1px solid rgba(232,255,71,0.25);
+    border-left:1px solid rgba(232,255,71,0.25);
+  }
+  .compare-cell.eklor.head{
+    background:rgba(232,255,71,0.08);
+    color:var(--accent);
+    border-top:1px solid rgba(232,255,71,0.4);
+  }
+  .compare > .compare-cell:nth-last-child(-n+4){border-bottom:none}
+  .check{color:var(--accent);margin-right:8px}
+  .cross{color:#ff5454;margin-right:8px}
+
+  /* ============ ACCORDION (DOUBTS + FAQ) ============ */
+  .accordion{border-top:1px solid var(--border)}
+  .acc-item{border-bottom:1px solid var(--border)}
+  .acc-trigger{
+    width:100%;display:flex;justify-content:space-between;align-items:center;
+    padding:28px 0;text-align:left;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;
+    font-size:18px;color:var(--text);
+    transition:color .2s ease;
+  }
+  .acc-trigger:hover{color:var(--accent)}
+  .acc-icon{
+    width:32px;height:32px;border:1px solid var(--border);
+    border-radius:50%;display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;margin-left:24px;
+    transition:transform .3s ease, border-color .3s ease, background .3s ease;
+    position:relative;
+  }
+  .acc-icon::before,.acc-icon::after{
+    content:'';position:absolute;background:currentColor;
+    transition:transform .3s ease;
+  }
+  .acc-icon::before{width:12px;height:1.5px}
+  .acc-icon::after{width:1.5px;height:12px}
+  .acc-item.open .acc-icon{background:var(--accent);border-color:var(--accent);color:#000}
+  .acc-item.open .acc-icon::after{transform:scaleY(0)}
+  .acc-content{
+    max-height:0;overflow:hidden;
+    transition:max-height .4s ease;
+  }
+  .acc-content-inner{
+    padding:0 0 28px 0;
+    color:var(--muted);font-size:15px;line-height:1.7;
+    max-width:820px;
+  }
+  .doubt-num{
+    font-family:'DM Sans',sans-serif;font-weight:500;
+    color:var(--accent);font-size:13px;letter-spacing:0.1em;
+    margin-right:14px;
+  }
+  @media(max-width:640px){.acc-trigger{font-size:15px;padding:22px 0}}
+
+  /* ============ PRICING ============ */
+  .pricing-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:24px;margin-top:32px;
+  }
+  .price-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:40px 32px;
+    display:flex;flex-direction:column;
+    position:relative;
+    transition:transform .3s ease, border-color .3s ease;
+  }
+  .price-card:hover{transform:translateY(-4px);border-color:#3a3a3a}
+  .price-card.featured{
+    border-color:var(--accent);
+    background:linear-gradient(180deg, rgba(232,255,71,0.04), var(--surface) 60%);
+    transform:scale(1.02);
+  }
+  .price-card.featured:hover{transform:scale(1.02) translateY(-4px)}
+  .featured-badge{
+    position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+    background:var(--accent);color:#000;
+    font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;
+    padding:6px 14px;border-radius:100px;
+  }
+  .price-name{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;
+    color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;
+    margin-bottom:18px;
+  }
+  .price-amount{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:42px;
+    color:var(--text);margin-bottom:6px;line-height:1;
+  }
+  .price-sub{font-size:13px;color:var(--muted);margin-bottom:32px}
+  .price-features{margin-bottom:32px;flex-grow:1}
+  .price-features li{
+    padding:10px 0;font-size:14px;color:var(--text);
+    display:flex;align-items:flex-start;gap:10px;
+    border-bottom:1px solid rgba(42,42,42,0.6);
+  }
+  .price-features li:last-child{border-bottom:none}
+  .price-features li::before{
+    content:"✓";color:var(--accent);font-weight:700;flex-shrink:0;
+  }
+  .price-features li.excluded{color:var(--muted)}
+  .price-features li.excluded::before{
+    content:"✕";color:#ff5454;
+  }
+  .price-btn{
+    width:100%;padding:14px;border-radius:6px;
+    font-size:14px;font-weight:500;
+    transition:all .2s ease;text-align:center;
+  }
+  .price-btn.primary{background:var(--accent);color:#000}
+  .price-btn.primary:hover{transform:translateY(-1px);box-shadow:0 8px 24px -8px rgba(232,255,71,0.5)}
+  .price-btn.ghost{border:1px solid var(--border);color:var(--text)}
+  .price-btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+  .pricing-mention{
+    text-align:center;margin-top:48px;
+    font-size:13px;color:var(--muted);font-style:italic;
+  }
+  @media(max-width:880px){
+    .pricing-grid{grid-template-columns:1fr;gap:32px}
+    .price-card.featured{transform:none}
+    .price-card.featured:hover{transform:translateY(-4px)}
+  }
+
+  /* ============ POURQUOI EKLOR ============ */
+  .differences{
+    display:grid;grid-template-columns:repeat(2,1fr);
+    gap:0;border-top:1px solid var(--border);
+  }
+  .diff{
+    padding:56px 48px;
+    border-right:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    border-left:3px solid transparent;
+    transition:border-left-color .3s ease, background .3s ease;
+  }
+  .diff:nth-child(2n){border-right:none}
+  .diff:hover{border-left-color:var(--accent);background:rgba(232,255,71,0.02)}
+  .diff-num{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;
+    color:var(--accent);letter-spacing:0.15em;margin-bottom:18px;display:block;
+  }
+  .diff h3{font-size:22px;margin-bottom:14px;font-weight:700}
+  .diff p{color:var(--muted);font-size:15px;line-height:1.7}
+  @media(max-width:880px){
+    .differences{grid-template-columns:1fr}
+    .diff{border-right:none;padding:40px 28px}
+  }
+
+  /* ============ CTA FINAL ============ */
+  .final-cta{
+    position:relative;
+    padding:160px 0;
+    text-align:center;
+    overflow:hidden;
+  }
+  .final-cta::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(ellipse 60% 50% at 50% 50%, rgba(232,255,71,0.08), transparent 70%);
+    pointer-events:none;
+  }
+  .final-inner{position:relative;z-index:1;max-width:820px;margin:0 auto}
+  .final-cta h2{
+    font-size:clamp(2.4rem, 5.5vw, 4.4rem);
+    margin-bottom:24px;
+  }
+  .final-cta p{
+    color:var(--muted);font-size:17px;max-width:580px;margin:0 auto 48px;
+  }
+  .final-cta .btn-primary{padding:20px 36px;font-size:16px}
+  .final-mention{
+    margin-top:24px;font-size:13px;color:var(--muted);
+  }
+  .final-mention::before{content:"→ ";color:var(--accent)}
+
+  /* ============ FOOTER ============ */
+  footer{
+    background:var(--bg);
+    border-top:1px solid var(--border);
+    padding:72px 0 40px;
+  }
+  .footer-top{
+    display:grid;grid-template-columns:1.2fr 1fr 1fr;
+    gap:48px;margin-bottom:64px;
+  }
+  .footer-brand .logo{font-size:24px;margin-bottom:14px;display:block}
+  .footer-brand p{color:var(--muted);font-size:14px;max-width:280px}
+  .footer-col h5{
+    font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;
+    letter-spacing:0.15em;text-transform:uppercase;color:var(--text);
+    margin-bottom:20px;
+  }
+  .footer-col a, .footer-col span{
+    display:block;color:var(--muted);font-size:14px;
+    padding:6px 0;transition:color .2s ease;
+  }
+  .footer-col a:hover{color:var(--accent)}
+  .footer-bottom{
+    border-top:1px solid var(--border);
+    padding-top:32px;
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:13px;color:var(--muted);flex-wrap:wrap;gap:16px;
+  }
+  .footer-bottom-links{display:flex;gap:24px}
+  .footer-bottom-links a:hover{color:var(--accent)}
+  @media(max-width:880px){
+    .footer-top{grid-template-columns:1fr;gap:40px}
+    .footer-bottom{flex-direction:column;align-items:flex-start}
+  }
+
+  /* ============ FADE-IN ============ */
+  .reveal{
+    opacity:0;transform:translateY(30px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+  .reveal.visible{opacity:1;transform:none}
+
+  /* ============ UTIL ============ */
+  ::selection{background:var(--accent);color:#000}
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-track{background:#0a0a0a}
+  ::-webkit-scrollbar-thumb{background:#222;border-radius:10px}
+  ::-webkit-scrollbar-thumb:hover{background:#333}
+</style>
+</head>
+<body>
+
+<!-- ============ NAVIGATION ============ -->
+<nav id="nav">
+  <div class="container nav-inner">
+    <a href="#" class="logo">EKLO<span class="y">R</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#comparatif">Comparatif</a></li>
+      <li><a href="#tarifs">Tarifs</a></li>
+      <li><a href="#pourquoi">Pourquoi Eklor</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact" class="nav-cta">Demander mon audit gratuit</a></li>
+    </ul>
+    <button class="burger" id="burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="container hero-inner">
+    <div class="badge reveal">
+      <span class="pulse"></span>
+      <span>Votre expert en acquisition B2B, externalisé</span>
+    </div>
+    <h1 class="reveal">
+      On livre.<br>
+      Pas des promesses.<br>
+      Des <span class="accent">rendez-vous.</span>
+    </h1>
+    <p class="hero-sub reveal">
+      Eklor génère des rendez-vous commerciaux avec des décideurs de PME B2B. Sans recruter un commercial, sans s'engager sur le long terme, sans bullshit.
+    </p>
+    <div class="hero-actions reveal">
+      <a href="#contact" class="btn-primary">Demander mon audit gratuit</a>
+      <a href="#services" class="btn-ghost">Voir nos offres →</a>
+    </div>
+    <p class="hero-note reveal">Tarifs de lancement valables pour les 3 premiers clients uniquement.</p>
+  </div>
+</section>
+
+<!-- ============ PROMESSES ============ -->
+<section class="promises">
+  <div class="promises-grid">
+    <div class="promise reveal">
+      <div class="promise-icon">🎯</div>
+      <h3>Ciblage précis</h3>
+      <p>Nous identifions vos prospects idéaux et construisons des séquences personnalisées qui génèrent de vraies réponses, pas des clics vides.</p>
+    </div>
+    <div class="promise reveal">
+      <div class="promise-icon">⚡</div>
+      <h3>Exécution en 48h</h3>
+      <p>Campagnes lancées en 48h après validation. Premiers signaux visibles dès la première semaine.</p>
+    </div>
+    <div class="promise reveal">
+      <div class="promise-icon">📊</div>
+      <h3>Transparence totale</h3>
+      <p>Reporting bi-mensuel complet. Vous savez exactement ce qui est fait, à qui, et pourquoi. Zéro boîte noire.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services" class="bg-dark section-pad">
+  <div class="container">
+    <span class="label reveal">Ce que fait Eklor concrètement</span>
+    <h2 class="section-title reveal">Trois façons de vous aider</h2>
+
+    <div class="services-list">
+      <div class="service reveal">
+        <div class="service-num">SERVICE 01</div>
+        <div>
+          <h3>Audit Prospection Gratuit</h3>
+          <p>On analyse votre process commercial actuel, on identifie les fuites dans votre pipeline et on vous donne des recommandations actionnables immédiatement. Gratuit. Sans engagement. Sans pitch agressif.</p>
+        </div>
+        <a href="#contact" class="btn-ghost">Réserver mon audit →</a>
+      </div>
+
+      <div class="service reveal">
+        <div class="service-num">SERVICE 02</div>
+        <div>
+          <h3>Génération de Rendez-vous B2B</h3>
+          <p>On cible vos prospects idéaux, on rédige des séquences personnalisées sur LinkedIn et par email, on assure la qualification et le transfert des réponses positives. Vous recevez des rendez-vous qualifiés directement dans votre agenda. Chaque séquence est construite sur des principes de psychologie comportementale, pas copiée d'un template LinkedIn vu 10 000 fois.</p>
+        </div>
+        <a href="#tarifs" class="btn-ghost">Voir les tarifs →</a>
+      </div>
+
+      <div class="service reveal">
+        <div class="service-num">SERVICE 03</div>
+        <div>
+          <h3>Stratégie ICP</h3>
+          <p>Vous ne savez pas encore précisément qui cibler ? On définit ensemble votre profil client idéal, votre message clé et votre positionnement commercial, avant de lancer la moindre campagne.</p>
+        </div>
+        <a href="#contact" class="btn-ghost">En savoir plus →</a>
+      </div>
+    </div>
+
+    <div class="channel-note reveal">
+      <h4>Pourquoi uniquement LinkedIn et Email ?</h4>
+      <p>En 2026, les décideurs B2B reçoivent en moyenne 8 appels de prospection par jour sur leur téléphone personnel. Le cold call est devenu intrusif, mal perçu et souvent contre-productif pour votre image de marque. Eklor choisit délibérément les canaux où la relation se construit. LinkedIn pour la connexion professionnelle, l'email pour la profondeur du message. Moins d'intrusion, plus de réponses qualifiées.</p>
+      <span class="soon">Bientôt : intégration d'un canal téléphonique pour les clients qui le souhaitent.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPARATIF ============ -->
+<section id="comparatif" class="bg-dark section-pad" style="padding-top:0">
+  <div class="container">
+    <span class="label reveal">Pourquoi Eklor</span>
+    <h2 class="section-title reveal">Pourquoi Eklor plutôt qu'une autre solution ?</h2>
+
+    <div class="compare-wrap reveal">
+      <div class="compare">
+        <div class="compare-cell head">Critère</div>
+        <div class="compare-cell head eklor">Eklor</div>
+        <div class="compare-cell head">Agence classique</div>
+        <div class="compare-cell head">Commercial interne</div>
+
+        <div class="compare-cell criteria">Coût mensuel</div>
+        <div class="compare-cell eklor">Dès 400€</div>
+        <div class="compare-cell">2 000 - 10 000€</div>
+        <div class="compare-cell">3 500€ + charges</div>
+
+        <div class="compare-cell criteria">Délai démarrage</div>
+        <div class="compare-cell eklor">48h</div>
+        <div class="compare-cell">3-6 semaines</div>
+        <div class="compare-cell">3-6 mois</div>
+
+        <div class="compare-cell criteria">Engagement</div>
+        <div class="compare-cell eklor">Mois par mois</div>
+        <div class="compare-cell">6-12 mois min</div>
+        <div class="compare-cell">CDI</div>
+
+        <div class="compare-cell criteria">Psychologie de vente</div>
+        <div class="compare-cell eklor"><span class="check">✓</span>Au cœur de la méthode</div>
+        <div class="compare-cell">Variable</div>
+        <div class="compare-cell">Variable</div>
+
+        <div class="compare-cell criteria">Transparence</div>
+        <div class="compare-cell eklor"><span class="check">✓</span>Totale</div>
+        <div class="compare-cell"><span class="cross">✕</span>Boîte noire</div>
+        <div class="compare-cell">Variable</div>
+
+        <div class="compare-cell criteria">Reporting</div>
+        <div class="compare-cell eklor"><span class="check">✓</span>Bi-mensuel</div>
+        <div class="compare-cell">Variable</div>
+        <div class="compare-cell">Variable</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOUTES ============ -->
+<section class="bg-surface section-pad">
+  <div class="container">
+    <span class="label reveal">Objections</span>
+    <h2 class="section-title reveal">On anticipe vos doutes.<br>C'est normal d'en avoir.</h2>
+
+    <div class="accordion reveal" data-accordion="doubts">
+      <div class="acc-item">
+        <button class="acc-trigger">
+          <span><span class="doubt-num">DOUTE 01</span>Vous n'avez pas de références clients.</span>
+          <span class="acc-icon"></span>
+        </button>
+        <div class="acc-content"><div class="acc-content-inner">
+          C'est vrai. Eklor est en phase de lancement. C'est exactement pourquoi nous proposons un audit gratuit avant tout engagement, et un Starter sans préavis. Vous évaluez notre valeur réelle avant de signer quoi que ce soit. Tarifs de lancement valables pour les 3 premiers clients uniquement.
+        </div></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger">
+          <span><span class="doubt-num">DOUTE 02</span>Le cold email et LinkedIn ça ne marche plus.</span>
+          <span class="acc-icon"></span>
+        </button>
+        <div class="acc-content"><div class="acc-content-inner">
+          Vous avez raison sur un point. Les séquences génériques ne marchent plus. Ce qui fonctionne en 2026 c'est la personnalisation psychologique à grande échelle. C'est exactement notre approche. Pas des templates copiés-collés envoyés en masse.
+        </div></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger">
+          <span><span class="doubt-num">DOUTE 03</span>Je peux faire ça en interne.</span>
+          <span class="acc-icon"></span>
+        </button>
+        <div class="acc-content"><div class="acc-content-inner">
+          Absolument. Un commercial interne coûte 3 500€+ de charges, prend 3 à 6 mois à recruter et former. Eklor démarre en 48h pour 400€/mois. Testez d'abord, recrutez ensuite si vous préférez internaliser.
+        </div></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger">
+          <span><span class="doubt-num">DOUTE 04</span>Comment je sais que vous allez vraiment travailler ?</span>
+          <span class="acc-icon"></span>
+        </button>
+        <div class="acc-content"><div class="acc-content-inner">
+          Reporting bi-mensuel complet. Vous voyez exactement ce qui a été envoyé, à qui, et les résultats obtenus. Notre transparence est notre meilleur atout. Vous pilotez à vue, pas dans le brouillard.
+        </div></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger">
+          <span><span class="doubt-num">DOUTE 05</span>Vous ne faites pas de téléphone, c'est une limite.</span>
+          <span class="acc-icon"></span>
+        </button>
+        <div class="acc-content"><div class="acc-content-inner">
+          C'est un choix délibéré. Le cold call mal ciblé détruit l'image de marque en 2026. LinkedIn et email permettent de construire une relation avant le premier appel. Quand votre prospect décroche, il vous connaît déjà.
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section id="tarifs" class="bg-dark section-pad">
+  <div class="container">
+    <span class="label reveal">Tarifs</span>
+    <h2 class="section-title reveal">Des offres claires.<br>Sans mauvaise surprise.</h2>
+    <p class="reveal" style="color:var(--muted);font-size:17px;max-width:580px;margin-top:-48px;margin-bottom:24px">
+      Pas de frais cachés. Pas de jargon. Juste ce que vous payez et ce que vous obtenez.
+    </p>
+
+    <div class="pricing-grid">
+      <div class="price-card reveal">
+        <div class="price-name">Starter</div>
+        <div class="price-amount">400€</div>
+        <div class="price-sub">/ mois</div>
+        <p style="font-size:13px;color:var(--muted);margin:-18px 0 28px;font-style:italic;">Sans engagement, arrêt possible à tout moment.</p>
+        <ul class="price-features">
+          <li>Définition de votre cible avec vous</li>
+          <li>Création des séquences LinkedIn + cold email</li>
+          <li>Qualification et transfert des réponses positives</li>
+          <li>Reporting bi-mensuel complet</li>
+          <li>Premiers signaux sous 2 à 4 semaines</li>
+        </ul>
+        <a href="#contact" class="price-btn ghost">Démarrer</a>
+      </div>
+
+      <div class="price-card featured reveal">
+        <div class="featured-badge">Recommandé</div>
+        <div class="price-name">Full Pack</div>
+        <div class="price-amount">200€<span style="font-size:18px;color:var(--muted);font-weight:400"> + 500€/mois</span></div>
+        <div class="price-sub">setup + mensuel</div>
+        <p style="font-size:13px;color:var(--muted);margin:-18px 0 28px;font-style:italic;">Engagement 3 mois, tarif de lancement préservé.</p>
+        <ul class="price-features">
+          <li>Tout le Starter inclus</li>
+          <li>Stratégie ICP complète</li>
+          <li>Message clé et positionnement commercial</li>
+          <li>Optimisation continue des campagnes</li>
+          <li>Appel mensuel de suivi stratégique</li>
+          <li>Priorité de traitement</li>
+        </ul>
+        <a href="#contact" class="price-btn primary">Démarrer maintenant</a>
+      </div>
+
+      <div class="price-card reveal">
+        <div class="price-name">Stratégie ICP</div>
+        <div class="price-amount">500€</div>
+        <div class="price-sub">one-shot</div>
+        <p style="font-size:13px;color:var(--muted);margin:-18px 0 28px;font-style:italic;">Livrable en 5 jours ouvrés.</p>
+        <ul class="price-features">
+          <li>Définition complète de votre client idéal</li>
+          <li>Message clé et positionnement</li>
+          <li>Séquences LinkedIn + email prêtes à lancer</li>
+          <li>Guide d'utilisation inclus</li>
+          <li class="excluded">Pas d'exécution incluse</li>
+        </ul>
+        <a href="#contact" class="price-btn ghost">Commander</a>
+      </div>
+    </div>
+
+    <p class="pricing-mention reveal">
+      Tous les prix sont HT. Tarifs de lancement valables pour les 3 premiers clients. Chaque collaboration débute par un audit gratuit de 30 minutes.
+    </p>
+  </div>
+</section>
+
+<!-- ============ POURQUOI EKLOR ============ -->
+<section id="pourquoi" class="bg-surface section-pad">
+  <div class="container">
+    <span class="label reveal">Nos différences</span>
+    <h2 class="section-title reveal">Ce qui nous rend différents</h2>
+
+    <div class="differences reveal">
+      <div class="diff">
+        <span class="diff-num">01</span>
+        <h3>No bullshit, toujours.</h3>
+        <p>Tarifs affichés, méthodes expliquées, reporting complet. Vous savez exactement ce que vous payez, ce qui est fait et pourquoi. Zéro zone grise.</p>
+      </div>
+      <div class="diff">
+        <span class="diff-num">02</span>
+        <h3>La psychologie là où les autres mettent du volume.</h3>
+        <p>Nos formations en psychologie comportementale nous permettent de construire des messages qui déclenchent une réaction, pas juste une lecture. Biais de réciprocité, preuve sociale, ancrage cognitif. Pendant que les autres envoient des templates en masse, Eklor conçoit des séquences qui parlent à l'humain derrière le dirigeant.</p>
+      </div>
+      <div class="diff">
+        <span class="diff-num">03</span>
+        <h3>Transparence totale sur l'exécution.</h3>
+        <p>Vous voyez exactement ce qui est fait chaque semaine, et vous pouvez arrêter à tout moment sur le Starter. Pas de zone grise, pas de boîte noire, pas de jargon. Le travail réel, sous vos yeux.</p>
+      </div>
+      <div class="diff">
+        <span class="diff-num">04</span>
+        <h3>Rapide et flexible.</h3>
+        <p>48h pour démarrer. Mois par mois sans engagement. Vous gardez le contrôle total à chaque étape.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="bg-dark section-pad">
+  <div class="container">
+    <span class="label reveal">FAQ</span>
+    <h2 class="section-title reveal">Vos questions,<br>nos réponses honnêtes</h2>
+
+    <div class="accordion reveal" data-accordion="faq">
+      <div class="acc-item">
+        <button class="acc-trigger">
+          <span>Combien de temps avant de voir des résultats ?</span>
+          <span class="acc-icon"></span>
+        </button>
+        <div class="acc-content"><div class="acc-content-inner">
+          Les premières réponses de prospects arrivent généralement dans les 2 premières semaines. Les premiers rendez-vous entre la 3ème et 4ème semaine selon votre secteur.
+        </div></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger">
+          <span>Vous travaillez dans mon secteur ?</span>
+          <span class="acc-icon"></span>
+        </button>
+        <div class="acc-content"><div class="acc-content-inner">
+          Nous travaillons avec toutes les PME B2B qui vendent des services ou produits à d'autres entreprises. Demandez un audit gratuit. On vous dira honnêtement en 30 minutes si on peut vous aider.
+        </div></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger">
+          <span>Combien de rendez-vous puis-je espérer obtenir ?</span>
+          <span class="acc-icon"></span>
+        </button>
+        <div class="acc-content"><div class="acc-content-inner">
+          Le volume dépend de votre secteur, de votre cible et du marché. En moyenne, nos campagnes génèrent entre 5 et 15 rendez-vous qualifiés par mois sur le Starter. L'audit gratuit nous permet d'évaluer un volume réaliste pour votre cas précis.
+        </div></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger">
+          <span>Est-ce que je garde le contrôle ?</span>
+          <span class="acc-icon"></span>
+        </button>
+        <div class="acc-content"><div class="acc-content-inner">
+          Totalement. Chaque séquence est soumise à votre validation avant envoi. Vous restez décisionnaire à chaque étape.
+        </div></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger">
+          <span>Quel est l'engagement minimum ?</span>
+          <span class="acc-icon"></span>
+        </button>
+        <div class="acc-content"><div class="acc-content-inner">
+          Aucun sur le Starter. On croit en notre travail, pas en les contrats forcés.
+        </div></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger">
+          <span>Êtes-vous conformes au RGPD ?</span>
+          <span class="acc-icon"></span>
+        </button>
+        <div class="acc-content"><div class="acc-content-inner">
+          Oui. Nos bases de données sont exclusivement B2B, nos méthodes respectent le cadre légal français et européen 2026, et nous gérons les listes d'opposition de manière automatisée.
+        </div></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger">
+          <span>Que se passe-t-il si je veux arrêter ?</span>
+          <span class="acc-icon"></span>
+        </button>
+        <div class="acc-content"><div class="acc-content-inner">
+          Vous arrêtez. Pas de préavis sur le Starter. Sur le Full Pack, un préavis de 30 jours s'applique après les 3 premiers mois.
+        </div></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger">
+          <span>Pourquoi un délai avant les premières campagnes ?</span>
+          <span class="acc-icon"></span>
+        </button>
+        <div class="acc-content"><div class="acc-content-inner">
+          La qualité de la prospection commence par la délivrabilité. Avant tout envoi, nous configurons un domaine dédié et procédons à un réchauffage progressif de 3 à 4 semaines. Cette étape garantit que vos messages arrivent en boîte de réception, et non en spam. C'est la différence entre une campagne qui performe et une campagne invisible.
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA FINAL ============ -->
+<section id="contact" class="final-cta">
+  <div class="container final-inner">
+    <h2 class="reveal">Prêt à remplir votre agenda<br>de rendez-vous qualifiés ?</h2>
+    <p class="reveal">30 minutes. Gratuit. Sans engagement. On analyse votre situation commerciale et on vous dit honnêtement si Eklor peut vous aider, ou pas.</p>
+    <a href="mailto:loic@eklor.co?subject=Demande%20d%27audit%20gratuit%20Eklor" class="btn-primary reveal">Demander mon audit gratuit</a>
+    <p class="final-mention reveal">Tarifs de lancement valables pour les 3 premiers clients uniquement.</p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="logo">EKLO<span class="y">R</span></a>
+        <p>Des rendez-vous. Pas des promesses.</p>
+        <p style="font-style:italic;color:#888880;font-size:0.85rem;margin-top:6px;">illuminate your pipeline.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigation</h5>
+        <a href="#services">Services</a>
+        <a href="#comparatif">Comparatif</a>
+        <a href="#tarifs">Tarifs</a>
+        <a href="#pourquoi">Pourquoi Eklor</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <a href="mailto:loic@eklor.co">loic@eklor.co</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Eklor. Tous droits réservés.</span>
+      <div class="footer-bottom-links">
+        <a href="#">Mentions légales</a>
+        <a href="#">Politique de confidentialité</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ===== NAV SCROLL =====
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 12) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+
+  // ===== BURGER MENU =====
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('active');
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      burger.classList.remove('active');
+      navLinks.classList.remove('open');
+    });
+  });
+
+  // ===== ACCORDIONS =====
+  document.querySelectorAll('.acc-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const content = item.querySelector('.acc-content');
+      const isOpen = item.classList.contains('open');
+
+      // Close all in same accordion
+      const parentAccordion = item.closest('.accordion');
+      parentAccordion.querySelectorAll('.acc-item.open').forEach(openItem => {
+        openItem.classList.remove('open');
+        openItem.querySelector('.acc-content').style.maxHeight = null;
+      });
+
+      if (!isOpen) {
+        item.classList.add('open');
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // ===== INTERSECTION OBSERVER (FADE-IN) =====
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
