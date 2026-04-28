@@ -75,13 +75,24 @@
     transition:color .2s ease;position:relative;
   }
   .nav-links a:hover{color:var(--text)}
-  .nav-cta{
-    background:var(--accent);color:#111111;
-    padding:11px 20px;border-radius:6px;
-    font-size:14px;font-weight:700;
+  .nav-cta,
+  a.nav-cta,
+  .nav-links a.nav-cta{
+    background:#e8ff47 !important;
+    color:#0a0a0a !important;
+    padding:11px 20px;
+    border-radius:6px;
+    font-size:14px;
+    font-weight:700 !important;
     transition:transform .2s ease, box-shadow .2s ease;
   }
-  .nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 24px -8px rgba(232,255,71,0.4)}
+  .nav-cta:hover,
+  a.nav-cta:hover,
+  .nav-links a.nav-cta:hover{
+    color:#0a0a0a !important;
+    transform:translateY(-1px);
+    box-shadow:0 8px 24px -8px rgba(232,255,71,0.4);
+  }
 
   .burger{display:none;width:32px;height:32px;flex-direction:column;justify-content:center;gap:6px;cursor:pointer}
   .burger span{display:block;height:2px;width:24px;background:var(--text);transition:transform .3s ease, opacity .3s ease}
@@ -216,24 +227,18 @@
   /* ============ SERVICES ============ */
   .services-list{border-top:1px solid var(--border)}
   .service{
-    display:grid;grid-template-columns:80px 1fr auto;
+    display:grid;grid-template-columns:1fr auto;
     gap:48px;align-items:start;
     padding:56px 0;
     border-bottom:1px solid var(--border);
     transition:background .3s ease;
   }
   .service:hover{background:linear-gradient(90deg, rgba(232,255,71,0.02), transparent 60%)}
-  .service-num{
-    font-family:'Space Grotesk',sans-serif;font-weight:700;
-    font-size:14px;color:var(--muted);letter-spacing:0.1em;
-    padding-top:6px;
-  }
   .service h3{font-size:28px;margin-bottom:16px;font-weight:700}
   .service p{color:var(--muted);font-size:16px;max-width:680px}
   .service .btn-ghost{align-self:center;white-space:nowrap}
   @media(max-width:880px){
     .service{grid-template-columns:1fr;gap:16px;padding:40px 0}
-    .service-num{padding-top:0}
     .service h3{font-size:22px}
   }
 
@@ -627,7 +632,6 @@
 
     <div class="services-list">
       <div class="service reveal">
-        <div class="service-num">SERVICE 01</div>
         <div>
           <h3>Audit Prospection Gratuit</h3>
           <p>On analyse votre process commercial actuel, on identifie les fuites dans votre pipeline et on vous donne des recommandations actionnables immédiatement. Gratuit. Sans engagement. Sans pitch agressif.</p>
@@ -636,7 +640,6 @@
       </div>
 
       <div class="service reveal">
-        <div class="service-num">SERVICE 02</div>
         <div>
           <h3>Génération de Rendez-vous B2B</h3>
           <p>On cible vos prospects idéaux, on rédige des séquences personnalisées sur LinkedIn et par email, on assure la qualification et le transfert des réponses positives. Vous recevez des rendez-vous qualifiés directement dans votre agenda. Chaque séquence est construite sur des principes de psychologie comportementale, pas copiée d'un template LinkedIn vu 10 000 fois.</p>
@@ -645,7 +648,6 @@
       </div>
 
       <div class="service reveal">
-        <div class="service-num">SERVICE 03</div>
         <div>
           <h3>Stratégie ICP</h3>
           <p>Vous ne savez pas encore précisément qui cibler ? On définit ensemble votre profil client idéal, votre message clé et votre positionnement commercial, avant de lancer la moindre campagne.</p>
@@ -845,7 +847,7 @@
 
       <div class="price-card reveal">
         <div class="price-name">Stratégie ICP</div>
-        <div class="price-amount">600€</div>
+        <div class="price-amount">500€</div>
         <div class="price-sub">one-shot</div>
         <p style="font-size:13px;color:var(--muted);margin:-18px 0 28px;font-style:italic;">Livrable en 5 jours ouvrés.</p>
         <ul class="price-features">
